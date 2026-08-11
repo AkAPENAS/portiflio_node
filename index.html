@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seu Nome — Backend Developer</title>
+<meta name="description" content="Portfólio de desenvolvedor back-end Node.js — inspirado no event loop">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="noise-overlay" aria-hidden="true"></div>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="#topo" class="nav__logo">await <span class="accent">dev</span><span class="cursor-blink">_</span></a>
+
+    <button class="nav__toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav__links" id="navLinks">
+      <li><a href="#sobre" data-target="sobre"><span class="fn">call_stack()</span></a></li>
+      <li><a href="#skills" data-target="skills"><span class="fn">web_apis()</span></a></li>
+      <li><a href="#projetos" data-target="projetos"><span class="fn">callback_queue()</span></a></li>
+      <li><a href="#contato" data-target="contato"><span class="fn">resolve()</span></a></li>
+      <li><a href="#" class="nav__cta" id="resumeLink">currículo ↓</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="topo">
+
+  <!-- ============ HERO ============ -->
+  <header class="hero">
+    <div class="hero__inner">
+
+      <div class="hero__copy">
+        <span class="eyebrow"><span class="pulse-dot"></span> event loop ativo — nunca bloqueado</span>
+        <h1 class="hero__title">
+          Non-blocking<br>
+          <span class="accent">por natureza.</span>
+        </h1>
+        <p class="hero__lead">
+          Sou <strong>Seu Nome</strong>, desenvolvedor Back-End Junior especializado em <strong>Node.js</strong>.
+          Enquanto uma tarefa espera, eu já iniciei a próxima — arquitetura de APIs,
+          bancos de dados e sistemas que não travam.
+        </p>
+        <div class="hero__actions">
+          <a href="#projetos" class="btn btn--primary" data-target="projetos">ver callback_queue()</a>
+          <a href="#contato" class="btn btn--ghost" data-target="contato">resolve() um contato</a>
+        </div>
+        <p class="hero__hint">toque em um nó do diagrama para navegar →</p>
+      </div>
+
+      <div class="hero__visual">
+        <div class="loop-diagram" id="loopDiagram">
+          <div class="loop-ring loop-ring--outer" aria-hidden="true"></div>
+          <div class="loop-ring loop-ring--inner" aria-hidden="true"></div>
+
+          <div class="loop-core" id="loopCore">
+            <span class="loop-core__label">loop()</span>
+            <span class="loop-core__sub">tick contínuo</span>
+          </div>
+
+          <div class="signal-dot" id="signalDot" aria-hidden="true"></div>
+
+          <button class="orbit-node" data-target="sobre" data-fn="call_stack()" data-label="Sobre" aria-label="Ir para Sobre — call_stack()">
+            <span class="orbit-node__fn">call_stack()</span>
+            <span class="orbit-node__label">Sobre</span>
+          </button>
+          <button class="orbit-node" data-target="skills" data-fn="web_apis()" data-label="Skills" aria-label="Ir para Skills — web_apis()">
+            <span class="orbit-node__fn">web_apis()</span>
+            <span class="orbit-node__label">Skills</span>
+          </button>
+          <button class="orbit-node" data-target="projetos" data-fn="callback_queue()" data-label="Projetos" aria-label="Ir para Projetos — callback_queue()">
+            <span class="orbit-node__fn">callback_queue()</span>
+            <span class="orbit-node__label">Projetos</span>
+          </button>
+          <button class="orbit-node" data-target="contato" data-fn="resolve()" data-label="Contato" aria-label="Ir para Contato — resolve()">
+            <span class="orbit-node__fn">resolve()</span>
+            <span class="orbit-node__label">Contato</span>
+          </button>
+        </div>
+
+        <div class="log-panel">
+          <div class="log-panel__bar">
+            <span class="log-dot"></span>
+            <span class="log-dot"></span>
+            <span class="log-dot"></span>
+            <span class="log-panel__title">console.log</span>
+          </div>
+          <div class="log-panel__body" id="logBody" aria-live="polite"></div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ============ SOBRE — call_stack() ============ -->
+  <section class="section" id="sobre">
+    <div class="section__inner reveal">
+      <p class="section__tag"><span class="fn">call_stack()</span><span class="section__tag-arrow">→</span>quem está executando agora</p>
+      <h2 class="section__title">Sobre</h2>
+
+      <div class="about">
+        <div class="about__photo-wrap">
+          <div class="about__photo" id="profilePhoto">
+            <!-- 🔧 TROQUE o src abaixo pela sua foto (ex: "foto.jpg") -->
+            <img src="foto-perfil.jpg" alt="Foto de perfil" id="photoImg" onerror="this.style.display='none'; document.getElementById('photoFallback').style.display='flex';">
+            <div class="about__photo-fallback" id="photoFallback">SN</div>
+          </div>
+        </div>
+
+        <div class="about__text">
+          <p class="about__bio">
+            <!-- 🔧 Edite sua bio aqui: trajetória, foco em back-end, o tipo de problema que gosta de resolver -->
+            Descreva aqui, em 3-4 linhas, sua trajetória: como começou na programação,
+            o que te fez focar em back-end, que tipo de problema gosta de resolver
+            e o que busca no próximo desafio profissional.
+          </p>
+
+          <div class="stack-frames" id="stackFrames">
+            <button class="stack-frame" type="button" data-frame="1">
+              <span class="stack-frame__head">
+                <span class="fn">atualmente_aprendendo()</span>
+                <span class="stack-frame__chevron">＋</span>
+              </span>
+              <span class="stack-frame__body">
+                <!-- 🔧 Edite: o que você está estudando agora -->
+                Arquitetura de microsserviços e boas práticas de escalabilidade com Node.js.
+              </span>
+            </button>
+            <button class="stack-frame" type="button" data-frame="2">
+              <span class="stack-frame__head">
+                <span class="fn">fora_do_teclado()</span>
+                <span class="stack-frame__chevron">＋</span>
+              </span>
+              <span class="stack-frame__body">
+                <!-- 🔧 Edite: um hobby ou interesse pessoal -->
+                Café coado, jogos de estratégia e contribuir com projetos open source.
+              </span>
+            </button>
+            <button class="stack-frame" type="button" data-frame="3">
+              <span class="stack-frame__head">
+                <span class="fn">objetivo_atual()</span>
+                <span class="stack-frame__chevron">＋</span>
+              </span>
+              <span class="stack-frame__body">
+                <!-- 🔧 Edite: sua meta profissional de curto prazo -->
+                Minha primeira oportunidade sólida como desenvolvedor back-end Node.js.
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS — web_apis() ============ -->
+  <section class="section section--alt" id="skills">
+    <div class="section__inner reveal">
+      <p class="section__tag"><span class="fn">web_apis()</span><span class="section__tag-arrow">→</span>capacidades chamadas de fora</p>
+      <h2 class="section__title">Skills</h2>
+      <p class="section__sub">Ferramentas que integro ao meu fluxo de trabalho no dia a dia.</p>
+
+      <div class="pkg-groups">
+        <div class="pkg-group">
+          <h3 class="pkg-group__title">runtime()</h3>
+          <ul class="pkg-list">
+            <li class="pkg"><span class="pkg__name">Node.js</span><span class="pkg__ver">v20</span></li>
+            <li class="pkg"><span class="pkg__name">JavaScript</span><span class="pkg__ver">ES2023</span></li>
+            <li class="pkg"><span class="pkg__name">TypeScript</span><span class="pkg__ver">v5</span></li>
+          </ul>
+        </div>
+        <div class="pkg-group">
+          <h3 class="pkg-group__title">frameworks()</h3>
+          <ul class="pkg-list">
+            <li class="pkg"><span class="pkg__name">Express</span><span class="pkg__ver">v4</span></li>
+            <li class="pkg"><span class="pkg__name">NestJS</span><span class="pkg__ver">v10</span></li>
+            <li class="pkg"><span class="pkg__name">JWT</span><span class="pkg__ver">v9</span></li>
+          </ul>
+        </div>
+        <div class="pkg-group">
+          <h3 class="pkg-group__title">dados()</h3>
+          <ul class="pkg-list">
+            <li class="pkg"><span class="pkg__name">PostgreSQL</span><span class="pkg__ver">v16</span></li>
+            <li class="pkg"><span class="pkg__name">MongoDB</span><span class="pkg__ver">v7</span></li>
+            <li class="pkg"><span class="pkg__name">Prisma</span><span class="pkg__ver">v5</span></li>
+          </ul>
+        </div>
+        <div class="pkg-group">
+          <h3 class="pkg-group__title">ferramentas()</h3>
+          <ul class="pkg-list">
+            <li class="pkg"><span class="pkg__name">Docker</span><span class="pkg__ver">v24</span></li>
+            <li class="pkg"><span class="pkg__name">Git &amp; GitHub</span><span class="pkg__ver">latest</span></li>
+            <li class="pkg"><span class="pkg__name">Insomnia</span><span class="pkg__ver">latest</span></li>
+          </ul>
+        </div>
+      </div>
+      <!-- 🔧 Edite os pacotes/tecnologias acima conforme sua stack real -->
+    </div>
+  </section>
+
+  <!-- ============ PROJETOS — callback_queue() ============ -->
+  <section class="section" id="projetos">
+    <div class="section__inner reveal">
+      <p class="section__tag"><span class="fn">callback_queue()</span><span class="section__tag-arrow">→</span>trabalho pronto, aguardando ser exibido</p>
+      <h2 class="section__title">Projetos</h2>
+      <p class="section__sub">Tarefas que já saíram da fila e foram entregues.</p>
+
+      <div class="projects">
+        <article class="project-card">
+          <div class="project-card__head">
+            <span class="task-index">task #01</span>
+            <span class="status-pill">resolved · 340ms</span>
+          </div>
+          <h3 class="project-card__title">Nome do Projeto 1</h3>
+          <p class="project-card__desc">
+            Descreva o problema que esse projeto resolve, sua responsabilidade
+            no desenvolvimento e um resultado ou aprendizado concreto.
+          </p>
+          <ul class="project-card__tags">
+            <li>Node.js</li><li>Express</li><li>PostgreSQL</li><li>JWT</li>
+          </ul>
+          <div class="project-card__links">
+            <a href="#" target="_blank" rel="noopener">→ código-fonte</a>
+            <a href="#" target="_blank" rel="noopener">→ documentação da API</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-card__head">
+            <span class="task-index">task #02</span>
+            <span class="status-pill">resolved · 210ms</span>
+          </div>
+          <h3 class="project-card__title">Nome do Projeto 2</h3>
+          <p class="project-card__desc">
+            Descreva o problema que esse projeto resolve, sua responsabilidade
+            no desenvolvimento e um resultado ou aprendizado concreto.
+          </p>
+          <ul class="project-card__tags">
+            <li>Node.js</li><li>MongoDB</li><li>Docker</li>
+          </ul>
+          <div class="project-card__links">
+            <a href="#" target="_blank" rel="noopener">→ código-fonte</a>
+            <a href="#" target="_blank" rel="noopener">→ demo</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-card__head">
+            <span class="task-index">task #03</span>
+            <span class="status-pill">resolved · 180ms</span>
+          </div>
+          <h3 class="project-card__title">Nome do Projeto 3</h3>
+          <p class="project-card__desc">
+            Descreva o problema que esse projeto resolve, sua responsabilidade
+            no desenvolvimento e um resultado ou aprendizado concreto.
+          </p>
+          <ul class="project-card__tags">
+            <li>NestJS</li><li>Prisma</li><li>TypeScript</li>
+          </ul>
+          <div class="project-card__links">
+            <a href="#" target="_blank" rel="noopener">→ código-fonte</a>
+          </div>
+        </article>
+      </div>
+      <!-- 🔧 Duplique/edite os <article class="project-card"> para adicionar mais projetos -->
+    </div>
+  </section>
+
+  <!-- ============ CONTATO — resolve() ============ -->
+  <section class="section section--alt" id="contato">
+    <div class="section__inner reveal">
+      <p class="section__tag"><span class="fn">resolve()</span><span class="section__tag-arrow">→</span>uma promise esperando ser cumprida</p>
+      <h2 class="section__title">Contato</h2>
+
+      <div class="contact">
+        <div class="promise-block">
+          <pre class="promise-code"><span class="kw">new</span> <span class="cls">Promise</span>((<span class="param">resolve</span>) <span class="arrow">=&gt;</span> {</pre>
+
+          <form class="contact__form" id="contactForm">
+            <label class="field">
+              <span class="field__label">nome</span>
+              <input type="text" name="nome" placeholder="Como você se chama" required>
+            </label>
+            <label class="field">
+              <span class="field__label">email</span>
+              <input type="email" name="email" placeholder="seu@email.com" required>
+            </label>
+            <label class="field">
+              <span class="field__label">mensagem</span>
+              <textarea name="mensagem" rows="4" placeholder="Sobre o que você quer falar?" required></textarea>
+            </label>
+            <button type="submit" class="btn btn--primary" id="submitBtn">
+              resolve(mensagem)
+            </button>
+            <p class="field__note" id="formNote">
+              <!-- 🔧 Formulário apenas visual — conecte a Formspree, EmailJS ou seu próprio backend Node -->
+              este formulário é ilustrativo — conecte a um serviço de envio de e-mail.
+            </p>
+          </form>
+
+          <pre class="promise-code">});</pre>
+        </div>
+
+        <aside class="contact__headers">
+          <h3 class="contact__headers-title">.then(contato =&gt;)</h3>
+          <ul class="headers-list">
+            <li class="header-row">
+              <span class="header-row__key">email</span>
+              <a href="mailto:seuemail@exemplo.com" class="header-row__val" id="emailLink">seuemail@exemplo.com</a>
+              <button class="copy-btn" id="copyEmailBtn" type="button" aria-label="Copiar e-mail">copiar</button>
+            </li>
+            <li class="header-row">
+              <span class="header-row__key">github</span>
+              <a href="https://github.com/seu-usuario" target="_blank" rel="noopener" class="header-row__val">github.com/seu-usuario</a>
+            </li>
+            <li class="header-row">
+              <span class="header-row__key">linkedin</span>
+              <a href="https://linkedin.com/in/seu-usuario" target="_blank" rel="noopener" class="header-row__val">linkedin.com/in/seu-usuario</a>
+            </li>
+            <li class="header-row">
+              <span class="header-row__key">local</span>
+              <span class="header-row__val">Sua Cidade, BR</span>
+            </li>
+          </ul>
+          <!-- 🔧 Troque e-mail, github, linkedin e localização pelos seus dados reais -->
+        </aside>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="footer__inner">
+    <p class="footer__log"><span class="fn">process.uptime()</span> → <span id="uptime">calculando...</span></p>
+    <p class="footer__copy">© <span id="year"></span> Seu Nome. Construído com HTML, CSS e JS puros.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
