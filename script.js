@@ -285,7 +285,7 @@ if (contactForm) {
 
     setTimeout(() => {
       formNote.textContent =
-        "promise resolvida — conecte este formulário a um serviço de e-mail (Formspree, EmailJS) ou a uma API própria para enviar de verdade.";
+        "Meio de contato nao disponivel no momento, tente outra opçao.";
       formNote.style.color = "var(--success)";
       submitBtn.textContent = original;
       submitBtn.disabled = false;
@@ -315,7 +315,7 @@ if (resumeLink) {
     // 🔧 Troque o href por um PDF real (ex: "cv.pdf") quando tiver o arquivo.
     if (resumeLink.getAttribute("href") === "#") {
       e.preventDefault();
-      alert("Adicione seu arquivo cv.pdf e atualize o link do botão 'currículo' no HTML.");
+      alert("Currículo não disponível no momento.");
     }
   });
 }
